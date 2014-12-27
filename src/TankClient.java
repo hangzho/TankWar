@@ -1,12 +1,17 @@
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.*;
 
 public class TankClient extends Frame {
+	
+	public static final int GAME_WIDTH = 800;//常量 容易维护
+	public static final int GAME_HEIGHT = 600;
+
 
 	int x = 50, y = 50;//控制位置
-	
+	Image offScreenImage = null;
 	public void paint(Graphics g) {//初始化时，paint会被自动调用
 		Color c = g.getColor();//g 是前景色
 		g.setColor(Color.RED);
@@ -15,10 +20,21 @@ public class TankClient extends Frame {
 		
 		y += 5;
 	}
-
+	public void update(Graphics g) {
+		if(offScreenImage == null){
+			offScreenImage = this.createImage(GAME_WIDTH,GAME_HEIGHT);
+		}
+		Graphics gOffScreen = offScreenImage.getGraphics();
+		Color c = gOffScreen.getColor();
+		gOffScreen.setColor(Color.GREEN);
+		gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+		gOffScreen.setColor(c);
+		paint(gOffScreen);
+		g.drawImage(offScreenImage, 0, 0, null);
+	}
 	public void launchFrame(){
 		this.setLocation(400, 300);
-		this.setSize(800, 600);
+		this.setSize(GAME_WIDTH, GAME_HEIGHT);
 		this.setTitle("TankWar");
 		this.addWindowListener(new WindowAdapter(){
 
