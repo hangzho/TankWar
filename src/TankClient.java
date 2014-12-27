@@ -8,15 +8,13 @@ public class TankClient extends Frame {
 	
 	public static final int GAME_WIDTH = 800;//常量 容易维护
 	public static final int GAME_HEIGHT = 600;
+	
+	Tank myTank = new Tank(50,50);
 
-
-	int x = 50, y = 50;//控制位置
+	//int x = 50, y = 50;//控制位置
 	Image offScreenImage = null;
 	public void paint(Graphics g) {//初始化时，paint会被自动调用
-		Color c = g.getColor();//g 是前景色
-		g.setColor(Color.RED);
-		g.fillOval(x, y, 30, 30);//x,y为左顶角，后面两个函数为宽和高
-		g.setColor(c);//还回去
+		myTank.draw(g);
 
 	}
 	public void update(Graphics g) {
@@ -73,21 +71,8 @@ public class TankClient extends Frame {
 	private class KeyMonitor extends KeyAdapter{
 
 		public void keyPressed(KeyEvent e) {
-			int key = e.getKeyCode();//获得按键的code
-			switch(key){
-			case KeyEvent.VK_LEFT:
-				x -= 5;
-				break;
-			case KeyEvent.VK_UP:
-				y -= 5;
-				break;
-			case KeyEvent.VK_RIGHT:
-				x += 5;
-				break;
-			case KeyEvent.VK_DOWN:
-				y += 5;
-				break;
-			}
+			myTank.keyPressed(e);
+
 		}
 
 	}
