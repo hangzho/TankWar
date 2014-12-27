@@ -58,7 +58,7 @@ public class TankClient extends Frame {
 			while(true){
 				repaint();//父类中的，内部调用paint方法
 				try {
-					Thread.sleep(50);
+					Thread.sleep(100);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
