@@ -6,7 +6,12 @@ import java.awt.event.KeyEvent;
 public class Tank {
 	public static final int XSPEED = 5;
 	public static final int YSPEED = 5;
-	private int x, y;
+	private int x, y;//位置
+	public static final int WIDTH = 30;
+	public static final int HEIGHT = 30;
+	
+	
+	TankClient tc;
 	
 	private boolean bL = false, bU = false, bR = false, bD =false;//记录按键状态
 	enum Direction{L,LU,U,RU,R,RD,D,LD, STOP}//枚举类型
@@ -18,10 +23,15 @@ public class Tank {
 		this.y = y;
 	}
 	
+	public Tank(int x, int y ,TankClient tc ){
+		this(x,y);
+		this.tc = tc;
+	}
+	
 	public void draw(Graphics g){
 		Color c = g.getColor();//g 是前景色
 		g.setColor(Color.RED);
-		g.fillOval(x, y, 30, 30);//x,y为左顶角，后面两个函数为宽和高
+		g.fillOval(x, y, WIDTH, HEIGHT);//x,y为左顶角，后面两个函数为宽和高
 		g.setColor(c);//还回去
 		
 		move();
@@ -64,7 +74,10 @@ public class Tank {
 	
 	public void keyPressed(KeyEvent e){
 		int key = e.getKeyCode();//获得按键的code
-		switch(key){
+		switch(key){ 
+		case KeyEvent.VK_CONTROL:
+			tc.m = fire();
+			break;
 		case KeyEvent.VK_LEFT:
 			bL = true;
 			break;
@@ -80,23 +93,14 @@ public class Tank {
 		}
 		locateDirection();
 	}
-	
-	void locateDirection(){//定位方向
-		if(bL && !bU && !bR && !bD) dir = Direction.L;
-		else if(bL && bU && !bR && !bD) dir = Direction.LU;
-		else if(!bL && bU && !bR && !bD) dir = Direction.U;
-		else if(!bL && bU && bR && !bD) dir = Direction.RU;
-		else if(!bL && !bU && bR && !bD) dir = Direction.R;
-		else if(!bL && !bU && bR && bD) dir = Direction.RD;
-		else if(!bL && !bU && !bR && bD) dir = Direction.D;
-		else if(bL && !bU && !bR && bD) dir = Direction.LD;
-		else if(!bL && !bU && !bR && !bD) dir = Direction.STOP;
-	}
 
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		int key = e.getKeyCode();//获得按键的code
 		switch(key){
+//		case KeyEvent.VK_CONTROL:
+//			fire();
+//			break;
 		case KeyEvent.VK_LEFT:
 			bL = false;
 			break;
@@ -111,5 +115,24 @@ public class Tank {
 			break;
 		}
 		locateDirection();	
+	}	
+	void locateDirection(){//定位方向
+		if(bL && !bU && !bR && !bD) dir = Direction.L;
+		else if(bL && bU && !bR && !bD) dir = Direction.LU;
+		else if(!bL && bU && !bR && !bD) dir = Direction.U;
+		else if(!bL && bU && bR && !bD) dir = Direction.RU;
+		else if(!bL && !bU && bR && !bD) dir = Direction.R;
+		else if(!bL && !bU && bR && bD) dir = Direction.RD;
+		else if(!bL && !bU && !bR && bD) dir = Direction.D;
+		else if(bL && !bU && !bR && bD) dir = Direction.LD;
+		else if(!bL && !bU && !bR && !bD) dir = Direction.STOP;
+	}
+
+	public Missile fire(){
+		int x = this.x + Tank.WIDTH/2 -Missile.WIDTH/2;
+		int y = this.y + Tank.HEIGHT/2 -Missile.HEIGHT/2;
+		
+		Missile m = new Missile(x,y,dir);
+		return m;
 	}
 }

@@ -9,13 +9,16 @@ public class TankClient extends Frame {
 	public static final int GAME_WIDTH = 800;//常量 容易维护
 	public static final int GAME_HEIGHT = 600;
 	
-	Tank myTank = new Tank(50,50);
-
+	Tank myTank = new Tank(50,50,this);
 	//int x = 50, y = 50;//控制位置
+	Missile m;
 	Image offScreenImage = null;
 	public void paint(Graphics g) {//初始化时，paint会被自动调用
+		if(m!=null){
+			m.draw(g);
+		}
 		myTank.draw(g);
-
+		
 	}
 	public void update(Graphics g) {
 		if(offScreenImage == null){
