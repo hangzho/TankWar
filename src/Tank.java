@@ -17,6 +17,7 @@ public class Tank {
 	enum Direction{L,LU,U,RU,R,RD,D,LD, STOP}//枚举类型
 	
 	private Direction dir = Direction.STOP;
+	private Direction ptDir = Direction.D;//pt 炮筒方向
 	
 	public Tank(int x, int y) {
 		this.x = x;
@@ -33,6 +34,33 @@ public class Tank {
 		g.setColor(Color.RED);
 		g.fillOval(x, y, WIDTH, HEIGHT);//x,y为左顶角，后面两个函数为宽和高
 		g.setColor(c);//还回去
+		
+		switch(ptDir) {
+		case L:
+			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x, y + Tank.HEIGHT/2);
+			break;
+		case LU:
+			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x, y);
+			break;
+		case U:
+			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x + Tank.WIDTH/2, y);
+			break;
+		case RU:
+			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x + Tank.WIDTH, y);
+			break;
+		case R:
+			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x + Tank.WIDTH, y + Tank.HEIGHT/2);
+			break;
+		case RD:
+			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x + Tank.WIDTH, y + Tank.HEIGHT);
+			break;
+		case D:
+			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x + Tank.WIDTH/2, y + Tank.HEIGHT);
+			break;
+		case LD:
+			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x, y + Tank.HEIGHT);
+			break;
+		}
 		
 		move();
 	}
@@ -69,6 +97,9 @@ public class Tank {
 			break;
 		case STOP:
 			break;
+		}
+		if(this.dir != Direction.STOP){
+			this.ptDir = this.dir;
 		}
 	}
 	
@@ -132,7 +163,7 @@ public class Tank {
 		int x = this.x + Tank.WIDTH/2 -Missile.WIDTH/2;
 		int y = this.y + Tank.HEIGHT/2 -Missile.HEIGHT/2;
 		
-		Missile m = new Missile(x,y,dir);
+		Missile m = new Missile(x,y,ptDir);
 		return m;
 	}
 }
