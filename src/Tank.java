@@ -92,4 +92,24 @@ public class Tank {
 		else if(bL && !bU && !bR && bD) dir = Direction.LD;
 		else if(!bL && !bU && !bR && !bD) dir = Direction.STOP;
 	}
+
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		int key = e.getKeyCode();//获得按键的code
+		switch(key){
+		case KeyEvent.VK_LEFT:
+			bL = false;
+			break;
+		case KeyEvent.VK_UP:
+			bU = false;
+			break;
+		case KeyEvent.VK_RIGHT:
+			bR = false;
+			break;
+		case KeyEvent.VK_DOWN:
+			bD = false;
+			break;
+		}
+		locateDirection();	
+	}
 }
