@@ -164,6 +164,8 @@ public class Tank {
 		int y = this.y + Tank.HEIGHT/2 -Missile.HEIGHT/2;
 		
 		Missile m = new Missile(x,y,ptDir);
+		
+		tc.missiles.add(m);
 		return m;
 	}
 }

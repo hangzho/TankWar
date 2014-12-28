@@ -3,6 +3,8 @@ import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TankClient extends Frame {
 	
@@ -11,12 +13,19 @@ public class TankClient extends Frame {
 	
 	Tank myTank = new Tank(50,50,this);
 	//int x = 50, y = 50;//控制位置
+	
 	Missile m;
+	List<Missile> missiles = new ArrayList<Missile>();
 	Image offScreenImage = null;
 	public void paint(Graphics g) {//初始化时，paint会被自动调用
-		if(m!=null){
+		g.drawString("Missiles counts:" + missiles.size(), 10, 50);
+		for(int i = 0 ; i< missiles.size();i++){
+			m = missiles.get(i);
+					if(m!=null){
 			m.draw(g);
 		}
+		}
+
 		myTank.draw(g);
 		
 	}
