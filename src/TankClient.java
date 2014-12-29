@@ -21,10 +21,12 @@ public class TankClient extends Frame {
 		g.drawString("Missiles counts:" + missiles.size(), 10, 50);
 		for(int i = 0 ; i< missiles.size();i++){
 			m = missiles.get(i);
-					if(m!=null){
-			m.draw(g);
-		}
-		}
+			if(!m.isLive()){
+				missiles.remove(i);
+			}else{
+				m.draw(g);
+			}
+					}
 
 		myTank.draw(g);
 		
@@ -67,7 +69,7 @@ public class TankClient extends Frame {
 	private class PaintThread implements Runnable{//线程 由内部类完成
 
 		public void run() {
-			while(true){
+			while(true){ 
 				repaint();//父类中的，内部调用paint方法
 				try {
 					Thread.sleep(100);
