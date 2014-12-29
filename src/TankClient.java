@@ -11,7 +11,8 @@ public class TankClient extends Frame {
 	public static final int GAME_WIDTH = 800;//常量 容易维护
 	public static final int GAME_HEIGHT = 600;
 	
-	Tank myTank = new Tank(50,50,this);
+	Tank myTank = new Tank(50,50,true,this);
+	Tank enemyTank = new Tank(100,100,false,this);
 	//int x = 50, y = 50;//控制位置
 	
 	Missile m;
@@ -29,6 +30,7 @@ public class TankClient extends Frame {
 					}
 
 		myTank.draw(g);
+		enemyTank.draw(g);
 		
 	}
 	public void update(Graphics g) {

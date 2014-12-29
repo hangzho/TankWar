@@ -13,25 +13,34 @@ public class Tank {
 	
 	TankClient tc;
 	
+	private boolean good;
+	
 	private boolean bL = false, bU = false, bR = false, bD =false;//记录按键状态
 	enum Direction{L,LU,U,RU,R,RD,D,LD, STOP}//枚举类型
 	
 	private Direction dir = Direction.STOP;
 	private Direction ptDir = Direction.D;//pt 炮筒方向
 	
-	public Tank(int x, int y) {
+	public Tank(int x, int y, boolean good) {
 		this.x = x;
 		this.y = y;
+		this.good = good;
+		
 	}
 	
-	public Tank(int x, int y ,TankClient tc ){
-		this(x,y);
+	public Tank(int x, int y ,boolean good, TankClient tc ){
+		this(x,y,good);
 		this.tc = tc;
 	}
 	
 	public void draw(Graphics g){
 		Color c = g.getColor();//g 是前景色
-		g.setColor(Color.RED);
+		if(good){
+					g.setColor(Color.RED);
+		}else{
+			g.setColor(Color.BLUE);
+		}
+
 		g.fillOval(x, y, WIDTH, HEIGHT);//x,y为左顶角，后面两个函数为宽和高
 		g.setColor(c);//还回去
 		
