@@ -2,7 +2,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
-
+import java.util.*;
 
 public class Tank {
 	public static final int XSPEED = 10;
@@ -12,7 +12,7 @@ public class Tank {
 	public static final int HEIGHT = 30;
 	private boolean live = true;
 	
-
+	private static Random r = new Random(); 
 
 
 	TankClient tc;
@@ -32,9 +32,10 @@ public class Tank {
 		
 	}
 	
-	public Tank(int x, int y ,boolean good, TankClient tc ){
+	public Tank(int x, int y ,boolean good, Direction dir, TankClient tc ){
 		this(x,y,good);
 		this.tc = tc;
+		this.dir = dir;
 	}
 	
 	public void draw(Graphics g){
@@ -127,12 +128,18 @@ public class Tank {
 		if (x + Tank.WIDTH > TankClient.GAME_WIDTH) x = TankClient.GAME_WIDTH - Tank.WIDTH;
 		if (y + Tank.HEIGHT > TankClient.GAME_HEIGHT) y = TankClient.GAME_HEIGHT - Tank.HEIGHT;
 		
+		if(!good){
+			Direction[] dirs = Direction.values();
+			int rn = r.nextInt(dirs.length);
+			dir = dirs[rn];
+		}
+		
 	}
 	
 	public void keyPressed(KeyEvent e){
 		int key = e.getKeyCode();//获得按键的code
 		switch(key){ 
-		case KeyEvent.VK_CONTROL:
+		case KeyEvent.VK_A:
 			fire();
 			break;
 		case KeyEvent.VK_LEFT:
