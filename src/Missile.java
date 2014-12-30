@@ -1,7 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-
+import java.util.*;
 
 public class Missile {
 
@@ -13,7 +13,7 @@ public class Missile {
 	public static final int WIDTH = 10;
 	public static final int HEIGHT = 10;
 	private TankClient tc;
-	
+
 	private boolean live = true;
 	
 	public boolean isLive() {
@@ -98,6 +98,16 @@ public class Missile {
 		}else{
 			return false;
 		}
+	}
+	
+	public boolean hitTanks(List<Tank> tanks){
+		for (int i = 0; i<tanks.size();i++){
+						if (hitTank(tanks.get(i))) {
+				return true;
+			}
+		}
+		return false;
+
 	}
 	
 }

@@ -38,7 +38,13 @@ public class Tank {
 	}
 	
 	public void draw(Graphics g){
-		if(!live) return;
+		if(!live) {
+			if (!good) {
+				tc.tanks.remove(this);
+			}
+			return;
+			
+		}
 		Color c = g.getColor();//g 是前景色
 		if(good){
 					g.setColor(Color.RED);

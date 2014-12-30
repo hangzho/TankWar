@@ -12,28 +12,38 @@ public class TankClient extends Frame {
 	public static final int GAME_HEIGHT = 600;
 	
 	Tank myTank = new Tank(50,50,true,this);
-	Tank enemyTank = new Tank(100,100,false,this);
+	
 	//int x = 50, y = 50;//控制位置
 	
+	Image offScreenImage = null;
 	Explode e;
 	List<Explode> explodes = new ArrayList<Explode>();
 	Missile m;
 	List<Missile> missiles = new ArrayList<Missile>();
-	Image offScreenImage = null;
+	Tank t;
+	List<Tank> tanks = new ArrayList<Tank>();
+	
+
 	public void paint(Graphics g) {//初始化时，paint会被自动调用
 		g.drawString("Missiles counts:" + missiles.size(), 10, 50);
 		g.drawString("Explodes counts:" + explodes.size(), 10, 70);
+		g.drawString("Tanks counts:" + tanks.size(), 10, 90);
 		for(int i = 0 ; i< missiles.size();i++){
 			m = missiles.get(i);
-			m.hitTank(enemyTank);
+				m.hitTanks(tanks);
 				m.draw(g);
 					}
 		for(int i = 0 ; i<explodes.size(); i++){
 			e = explodes.get(i);
 			e.draw(g);
 		}
+		
+		for(int i = 0; i<tanks.size();i++){
+			t = tanks.get(i);
+			t.draw(g);
+		}
 		myTank.draw(g);
-		enemyTank.draw(g);
+
 		
 		
 	}
@@ -50,6 +60,9 @@ public class TankClient extends Frame {
 		g.drawImage(offScreenImage, 0, 0, null);
 	}
 	public void launchFrame(){
+		for(int i = 0; i<10; i++){
+			tanks.add(new Tank(50+40*(i+1),50,false,this));
+		}
 		this.setLocation(400, 300);
 		this.setSize(GAME_WIDTH, GAME_HEIGHT);
 		this.setTitle("TankWar");
