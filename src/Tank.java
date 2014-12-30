@@ -1,16 +1,20 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 
 
 public class Tank {
-	public static final int XSPEED = 5;
-	public static final int YSPEED = 5;
+	public static final int XSPEED = 10;
+	public static final int YSPEED = 10;
 	private int x, y;//位置
 	public static final int WIDTH = 30;
 	public static final int HEIGHT = 30;
+	private boolean live = true;
 	
-	
+
+
+
 	TankClient tc;
 	
 	private boolean good;
@@ -34,6 +38,7 @@ public class Tank {
 	}
 	
 	public void draw(Graphics g){
+		if(!live) return;
 		Color c = g.getColor();//g 是前景色
 		if(good){
 					g.setColor(Color.RED);
@@ -122,7 +127,7 @@ public class Tank {
 		int key = e.getKeyCode();//获得按键的code
 		switch(key){ 
 		case KeyEvent.VK_CONTROL:
-			tc.m = fire();
+			fire();
 			break;
 		case KeyEvent.VK_LEFT:
 			bL = true;
@@ -178,9 +183,22 @@ public class Tank {
 		int x = this.x + Tank.WIDTH/2 -Missile.WIDTH/2;
 		int y = this.y + Tank.HEIGHT/2 -Missile.HEIGHT/2;
 		
-		Missile m = new Missile(x,y,ptDir);
+		Missile m = new Missile(x,y,ptDir,tc);
 		
 		tc.missiles.add(m);
 		return m;
+	}
+	
+	
+	public Rectangle getRect(){
+		return new Rectangle(x,y,WIDTH, HEIGHT);
+	}
+	
+	public boolean isLive() {
+		return live;
+	}
+
+	public void setLive(boolean live) {
+		this.live = live;
 	}
 }

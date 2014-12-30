@@ -1,15 +1,18 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 
 public class Missile {
 
 	int x, y;//位置
 	Tank.Direction dir;//方向
-	public static final int XSPEED = 10;
-	public static final int YSPEED = 10;
+	
+	public static final int XSPEED = 20;
+	public static final int YSPEED = 20;
 	public static final int WIDTH = 10;
 	public static final int HEIGHT = 10;
+	private TankClient tc;
 	
 	private boolean live = true;
 	
@@ -21,9 +24,18 @@ public class Missile {
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
+	}
+	
+	public Missile(int x, int y, Tank.Direction dir, TankClient tc) {
+		this(x,y,dir);
+		this.tc = tc;
 	}	
 	
 	public void draw(Graphics g){
+		if(!live) {
+			tc.missiles.remove(this);
+			return;
+		}
 		Color c = g.getColor();
 		g.setColor(Color.BLACK);
 		g.fillOval(x, y, WIDTH, HEIGHT);
@@ -63,6 +75,8 @@ public class Missile {
 			x -= XSPEED;
 			y += YSPEED;
 			break;
+		case STOP:
+			break;
 		}
 		
 		if(x<0 || y<0 || x> TankClient.GAME_WIDTH || y > TankClient.GAME_HEIGHT){
@@ -70,5 +84,19 @@ public class Missile {
 		}
 	}
 	
+	public Rectangle getRect(){
+		return new Rectangle(x,y,WIDTH, HEIGHT);
+	}
+	
+	public boolean hitTank(Tank t){
+		if(this.getRect().intersects(t.getRect()) && t.isLive()){
+			t.setLive(false);
+			this.live = false;
+			
+			return true;
+		}else{
+			return false;
+		}
+	}
 	
 }
