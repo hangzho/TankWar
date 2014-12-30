@@ -15,6 +15,8 @@ public class TankClient extends Frame {
 	Tank enemyTank = new Tank(100,100,false,this);
 	//int x = 50, y = 50;//控制位置
 	
+	Explode e = new Explode(70,70,this);
+	
 	Missile m;
 	List<Missile> missiles = new ArrayList<Missile>();
 	Image offScreenImage = null;
@@ -28,6 +30,7 @@ public class TankClient extends Frame {
 
 		myTank.draw(g);
 		enemyTank.draw(g);
+		e.draw(g);
 		
 	}
 	public void update(Graphics g) {
