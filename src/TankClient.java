@@ -15,22 +15,26 @@ public class TankClient extends Frame {
 	Tank enemyTank = new Tank(100,100,false,this);
 	//int x = 50, y = 50;//控制位置
 	
-	Explode e = new Explode(70,70,this);
-	
+	Explode e;
+	List<Explode> explodes = new ArrayList<Explode>();
 	Missile m;
 	List<Missile> missiles = new ArrayList<Missile>();
 	Image offScreenImage = null;
 	public void paint(Graphics g) {//初始化时，paint会被自动调用
 		g.drawString("Missiles counts:" + missiles.size(), 10, 50);
+		g.drawString("Explodes counts:" + explodes.size(), 10, 70);
 		for(int i = 0 ; i< missiles.size();i++){
 			m = missiles.get(i);
 			m.hitTank(enemyTank);
 				m.draw(g);
 					}
-
+		for(int i = 0 ; i<explodes.size(); i++){
+			e = explodes.get(i);
+			e.draw(g);
+		}
 		myTank.draw(g);
 		enemyTank.draw(g);
-		e.draw(g);
+		
 		
 	}
 	public void update(Graphics g) {
