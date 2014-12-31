@@ -36,6 +36,7 @@ public class TankClient extends Frame {
 				m.hitTank(myTank);
 				m.hitWall(w1);
 				m.hitWall(w2);
+	
 				m.draw(g);
 					}
 		for(int i = 0 ; i<explodes.size(); i++){
@@ -47,7 +48,7 @@ public class TankClient extends Frame {
 			t = tanks.get(i);
 			t.collideWall(w1);
 			t.collideWall(w2);
-			
+			t.collideTank(tanks);
 			t.draw(g);
 		}
 		myTank.draw(g);

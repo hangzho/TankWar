@@ -165,6 +165,9 @@ public class Tank {
 	public void keyPressed(KeyEvent e){
 		int key = e.getKeyCode();//获得按键的code
 		switch(key){ 
+		case KeyEvent.VK_S:
+			superFire();
+			break;
 		case KeyEvent.VK_A:
 			fire();
 			break;
@@ -229,6 +232,16 @@ public class Tank {
 		return m;
 	}
 	
+	public Missile fire(Direction dir){
+		if(!live) return null;
+		int x = this.x + Tank.WIDTH/2 -Missile.WIDTH/2;
+		int y = this.y + Tank.HEIGHT/2 -Missile.HEIGHT/2;
+		
+		Missile m = new Missile(x,y,good,dir,tc);
+		
+		tc.missiles.add(m);
+		return m;
+	}
 	
 	public Rectangle getRect(){
 		return new Rectangle(x,y,WIDTH, HEIGHT);
@@ -252,5 +265,26 @@ public class Tank {
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean collideTank(List<Tank> tanks){
+		for (int i =0 ; i< tanks.size();i++){
+			Tank t = tanks.get(i);
+			if(this != t){
+				if(this.live && t.isLive() && this.getRect().intersects(t.getRect())){
+					this.stay();
+					t.stay();
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	private void superFire(){
+		Direction[] dirs = Direction.values();
+		for(int i =0 ; i < 8; i++){
+			tc.missiles.add(fire(dirs[i]));
+		}
 	}
 }
