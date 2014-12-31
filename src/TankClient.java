@@ -13,6 +13,8 @@ public class TankClient extends Frame {
 	
 	Tank myTank = new Tank(50,50,true,Tank.Direction.STOP, this);
 	
+	Wall w1 = new Wall(100, 200, 20, 150, this);
+	Wall w2 = new Wall(300, 100, 300, 20, this);
 	//int x = 50, y = 50;//控制位置
 	
 	Image offScreenImage = null;
@@ -32,6 +34,8 @@ public class TankClient extends Frame {
 			m = missiles.get(i);
 				m.hitTanks(tanks);
 				m.hitTank(myTank);
+				m.hitWall(w1);
+				m.hitWall(w2);
 				m.draw(g);
 					}
 		for(int i = 0 ; i<explodes.size(); i++){
@@ -41,10 +45,14 @@ public class TankClient extends Frame {
 		
 		for(int i = 0; i<tanks.size();i++){
 			t = tanks.get(i);
+			t.collideWall(w1);
+			t.collideWall(w2);
+			
 			t.draw(g);
 		}
 		myTank.draw(g);
-		
+		w1.draw(g);
+		w2.draw(g);
 		
 		
 	}
@@ -62,7 +70,7 @@ public class TankClient extends Frame {
 	}
 	public void launchFrame(){
 		for(int i = 0; i<10; i++){
-			tanks.add(new Tank(50+40*(i+1),50,false,Tank.Direction.D, this));
+			tanks.add(new Tank(90+40*(i+1),250,false,Tank.Direction.D, this));//画敌人坦克
 		}
 		this.setLocation(400, 300);
 		this.setSize(GAME_WIDTH, GAME_HEIGHT);

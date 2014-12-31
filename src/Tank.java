@@ -10,6 +10,7 @@ public class Tank {
 	public static final int XSPEED = 10;
 	public static final int YSPEED = 10;
 	private int x, y;//位置
+	private int oldX, oldY;
 	public static final int WIDTH = 30;
 	public static final int HEIGHT = 30;
 	private boolean live = true;
@@ -33,6 +34,8 @@ public class Tank {
 		this.x = x;
 		this.y = y;
 		this.good = good;
+		this.oldX = x;
+		this.oldY = y;
 		
 	}
 	
@@ -91,6 +94,9 @@ public class Tank {
 	}
 	
 	void move(){
+		this.oldX = x;
+		this.oldY = y;
+		
 		switch(dir){
 		case L:
 			x -= XSPEED;
@@ -147,6 +153,13 @@ public class Tank {
 			
 		}
 		
+
+		
+	}
+	
+	private void stay(){
+		x = oldX;
+		y = oldY;
 	}
 	
 	public void keyPressed(KeyEvent e){
@@ -231,5 +244,13 @@ public class Tank {
 	
 	public boolean isGood() {
 		return good;
+	}
+	
+	public boolean collideWall(Wall w){
+		if(this.live && this.getRect().intersects(w.getRect())){
+			this.stay();
+			return true;
+		}
+		return false;
 	}
 }
