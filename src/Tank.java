@@ -22,7 +22,8 @@ public class Tank {
 	public int getLife() {
 		return life;
 	}
-
+	private BloddBar bb = new BloddBar();
+	
 	private static Random r = new Random();
 
 	TankClient tc;
@@ -66,13 +67,16 @@ public class Tank {
 		Color c = g.getColor();// g 是前景色
 		if (good) {
 			g.setColor(Color.RED);
+			bb.draw(g);
 		} else {
 			g.setColor(Color.BLUE);
 		}
 
 		g.fillOval(x, y, WIDTH, HEIGHT);// x,y为左顶角，后面两个函数为宽和高
 		g.setColor(c);// 还回去
+		
 
+		
 		switch (ptDir) {
 		case L:
 			g.drawLine(x + Tank.WIDTH / 2, y + Tank.HEIGHT / 2, x, y
@@ -317,6 +321,19 @@ public class Tank {
 		Direction[] dirs = Direction.values();
 		for (int i = 0; i < 8; i++) {
 			tc.missiles.add(fire(dirs[i]));
+		}
+	}
+	
+	
+	private class BloddBar{
+		public void draw(Graphics g){
+			Color c = g.getColor();
+			g.setColor(Color.RED);
+			g.drawRect(x, y - 10, WIDTH, 10);
+			int w = WIDTH * life /100 ;
+			g.fillRect(x, y-10, w, 10);
+			g.setColor(c);
+			
 		}
 	}
 }
