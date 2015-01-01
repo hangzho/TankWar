@@ -188,6 +188,12 @@ public class Tank {
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();// 获得按键的code
 		switch (key) {
+		case KeyEvent.VK_F2:
+			if(!this.live){
+				this.live = true;
+				this.life = 100;
+			}
+			break;
 		case KeyEvent.VK_S:
 			superFire();
 			break;
