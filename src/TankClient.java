@@ -25,6 +25,8 @@ public class TankClient extends Frame {
 	Tank t;
 	List<Tank> tanks = new ArrayList<Tank>();
 
+	Blood b = new Blood();
+	
 	public void paint(Graphics g) {// 初始化时，paint会被自动调用
 		g.drawString("Missiles counts:" + missiles.size(), 10, 50);
 		g.drawString("Explodes counts:" + explodes.size(), 10, 70);
@@ -52,9 +54,10 @@ public class TankClient extends Frame {
 			t.draw(g);
 		}
 		myTank.draw(g);
+		myTank.eat(b);
 		w1.draw(g);
 		w2.draw(g);
-
+		b.draw(g);
 	}
 
 	public void update(Graphics g) {

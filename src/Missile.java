@@ -16,6 +16,10 @@ public class Missile {
 	private boolean good;
 	private boolean live = true;
 
+	public void setLive(boolean live) {
+		this.live = live;
+	}
+
 	public boolean isLive() {
 		return live;
 	}
