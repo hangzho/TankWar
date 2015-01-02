@@ -1,3 +1,4 @@
+package com.hz.tank;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -32,9 +33,9 @@ public class Tank {
 
 	private boolean bL = false, bU = false, bR = false, bD = false;// 记录按键状态
 
-	enum Direction {
-		L, LU, U, RU, R, RD, D, LD, STOP
-	}// 枚举类型
+//	enum Direction {
+//		L, LU, U, RU, R, RD, D, LD, STOP
+//	}// 枚举类型
 
 	private Direction dir = Direction.STOP;
 	private Direction ptDir = Direction.D;// pt 炮筒方向

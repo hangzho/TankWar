@@ -1,3 +1,4 @@
+package com.hz.tank;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Graphics;
@@ -11,7 +12,7 @@ public class TankClient extends Frame {
 	public static final int GAME_WIDTH = 800;// 常量 容易维护
 	public static final int GAME_HEIGHT = 600;
 
-	Tank myTank = new Tank(50, 50, true, Tank.Direction.STOP, this);
+	Tank myTank = new Tank(50, 50, true, Direction.STOP, this);
 
 	Wall w1 = new Wall(100, 200, 20, 150, this);
 	Wall w2 = new Wall(300, 100, 300, 20, this);
@@ -35,7 +36,7 @@ public class TankClient extends Frame {
 		
 		if (tanks.size() == 0){
 			for (int i = 0; i < 10; i++) {
-				tanks.add(new Tank(90 + 40 * (i + 1), 250, false, Tank.Direction.D,
+				tanks.add(new Tank(90 + 40 * (i + 1), 250, false, Direction.D,
 						this));// 画敌人坦克
 			}
 		}
@@ -82,7 +83,7 @@ public class TankClient extends Frame {
 
 	public void launchFrame() {
 		for (int i = 0; i < 10; i++) {
-			tanks.add(new Tank(90 + 40 * (i + 1), 250, false, Tank.Direction.D,
+			tanks.add(new Tank(90 + 40 * (i + 1), 250, false, Direction.D,
 					this));// 画敌人坦克
 		}
 		this.setLocation(400, 300);

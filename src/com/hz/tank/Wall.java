@@ -1,3 +1,4 @@
+package com.hz.tank;
 import java.awt.*;
 
 public class Wall {

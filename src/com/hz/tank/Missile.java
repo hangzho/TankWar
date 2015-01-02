@@ -1,12 +1,15 @@
+package com.hz.tank;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.*;
 
+import com.hz.tank.Direction;
+
 public class Missile {
 
 	int x, y;// 位置
-	Tank.Direction dir;// 方向
+	Direction dir;// 方向
 
 	public static final int XSPEED = 20;
 	public static final int YSPEED = 20;
@@ -24,13 +27,13 @@ public class Missile {
 		return live;
 	}
 
-	public Missile(int x, int y, Tank.Direction dir) {
+	public Missile(int x, int y, Direction dir) {
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 	}
 
-	public Missile(int x, int y, boolean good, Tank.Direction dir, TankClient tc) {
+	public Missile(int x, int y, boolean good, Direction dir, TankClient tc) {
 		this(x, y, dir);
 		this.tc = tc;
 		this.good = good;
