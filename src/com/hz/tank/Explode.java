@@ -24,7 +24,8 @@ public class Explode {
 			tk.getImage(Explode.class.getClassLoader().getResource("images/10.gif"))
 	};
 	int step = 0;
-
+	private static boolean init;
+	
 	public Explode(int x, int y, TankClient tc) {
 		this.x = x;
 		this.y = y;
@@ -32,6 +33,13 @@ public class Explode {
 	}
 
 	public void draw(Graphics g) {
+		
+		if(!init){
+			for (int j = 0; j < images.length; j++) {
+				g.drawImage(images[j], x, y, null);
+			}
+			init = true;
+		}
 		if (!live) {
 			tc.explodes.remove(this);
 			return;
