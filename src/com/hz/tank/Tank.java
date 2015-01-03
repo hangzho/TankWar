@@ -1,7 +1,9 @@
 package com.hz.tank;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.util.*;
 
@@ -16,6 +18,31 @@ public class Tank {
 	private boolean live = true;
 	private int life = 100;
 
+private static Toolkit tk = Toolkit.getDefaultToolkit();
+
+	private static Image[] images = {  //don't have to load images every time using static 
+			tk.getImage(Explode.class.getClassLoader().getResource("images/tankL.gif")),//reflection
+			tk.getImage(Explode.class.getClassLoader().getResource("images/tankLU.gif")),
+			tk.getImage(Explode.class.getClassLoader().getResource("images/tankU.gif")),
+			tk.getImage(Explode.class.getClassLoader().getResource("images/tankRU.gif")),
+			tk.getImage(Explode.class.getClassLoader().getResource("images/tankR.gif")),
+			tk.getImage(Explode.class.getClassLoader().getResource("images/tankRD.gif")),
+			tk.getImage(Explode.class.getClassLoader().getResource("images/tankD.gif")),
+			tk.getImage(Explode.class.getClassLoader().getResource("images/tankLD.gif")),
+
+	};
+	private static Map<String, Image> imgs = new HashMap<String, Image>();
+	static{//静态的语句块，可以进行赋值等function的操作。初始化时运行。
+		imgs.put("L", images[0]);
+		imgs.put("LU", images[1]);
+		imgs.put("U", images[2]);
+		imgs.put("RU", images[3]);
+		imgs.put("R", images[4]);
+		imgs.put("RD", images[5]);
+		imgs.put("D", images[6]);
+		imgs.put("LD", images[7]);
+	}
+	
 	public void setLife(int life) {
 		this.life = life;
 	}
@@ -65,50 +92,48 @@ public class Tank {
 			return;
 
 		}
-		Color c = g.getColor();// g 是前景色
-		if (good) {
-			g.setColor(Color.RED);
-			bb.draw(g);
-		} else {
-			g.setColor(Color.BLUE);
-		}
-
-		g.fillOval(x, y, WIDTH, HEIGHT);// x,y为左顶角，后面两个函数为宽和高
-		g.setColor(c);// 还回去
+//		Color c = g.getColor();// g 是前景色
+//		if (good) {
+//			g.setColor(Color.RED);
+//			bb.draw(g);
+//		} else {
+//			g.setColor(Color.BLUE);
+//		}
+//
+//		g.fillOval(x, y, WIDTH, HEIGHT);// x,y为左顶角，后面两个函数为宽和高
+//		g.setColor(c);// 还回去
 		
-
+		
 		
 		switch (ptDir) {
 		case L:
-			g.drawLine(x + Tank.WIDTH / 2, y + Tank.HEIGHT / 2, x, y
-					+ Tank.HEIGHT / 2);
+			g.drawImage(imgs.get("L"), x, y, null);
 			break;
 		case LU:
-			g.drawLine(x + Tank.WIDTH / 2, y + Tank.HEIGHT / 2, x, y);
+			g.drawImage(imgs.get("LU"), x, y, null);
 			break;
 		case U:
-			g.drawLine(x + Tank.WIDTH / 2, y + Tank.HEIGHT / 2, x + Tank.WIDTH
-					/ 2, y);
+			g.drawImage(imgs.get("U"), x, y, null);
+
 			break;
 		case RU:
-			g.drawLine(x + Tank.WIDTH / 2, y + Tank.HEIGHT / 2, x + Tank.WIDTH,
-					y);
+			g.drawImage(imgs.get("RU"), x, y, null);
+
 			break;
 		case R:
-			g.drawLine(x + Tank.WIDTH / 2, y + Tank.HEIGHT / 2, x + Tank.WIDTH,
-					y + Tank.HEIGHT / 2);
+			g.drawImage(imgs.get("R"), x, y, null);
+
 			break;
 		case RD:
-			g.drawLine(x + Tank.WIDTH / 2, y + Tank.HEIGHT / 2, x + Tank.WIDTH,
-					y + Tank.HEIGHT);
+			g.drawImage(imgs.get("RD"), x, y, null);
+
 			break;
 		case D:
-			g.drawLine(x + Tank.WIDTH / 2, y + Tank.HEIGHT / 2, x + Tank.WIDTH
-					/ 2, y + Tank.HEIGHT);
+			g.drawImage(imgs.get("D"), x, y, null);
+
 			break;
 		case LD:
-			g.drawLine(x + Tank.WIDTH / 2, y + Tank.HEIGHT / 2, x, y
-					+ Tank.HEIGHT);
+			g.drawImage(imgs.get("LD"), x, y, null);
 			break;
 		}
 
