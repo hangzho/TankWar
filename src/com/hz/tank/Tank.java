@@ -21,18 +21,18 @@ public class Tank {
 private static Toolkit tk = Toolkit.getDefaultToolkit();
 
 	private static Image[] images = {  //don't have to load images every time using static 
-			tk.getImage(Explode.class.getClassLoader().getResource("images/tankL.gif")),//reflection
-			tk.getImage(Explode.class.getClassLoader().getResource("images/tankLU.gif")),
-			tk.getImage(Explode.class.getClassLoader().getResource("images/tankU.gif")),
-			tk.getImage(Explode.class.getClassLoader().getResource("images/tankRU.gif")),
-			tk.getImage(Explode.class.getClassLoader().getResource("images/tankR.gif")),
-			tk.getImage(Explode.class.getClassLoader().getResource("images/tankRD.gif")),
-			tk.getImage(Explode.class.getClassLoader().getResource("images/tankD.gif")),
-			tk.getImage(Explode.class.getClassLoader().getResource("images/tankLD.gif")),
+			tk.getImage(Tank.class.getClassLoader().getResource("images/tankL.gif")),//reflection
+			tk.getImage(Tank.class.getClassLoader().getResource("images/tankLU.gif")),
+			tk.getImage(Tank.class.getClassLoader().getResource("images/tankU.gif")),
+			tk.getImage(Tank.class.getClassLoader().getResource("images/tankRU.gif")),
+			tk.getImage(Tank.class.getClassLoader().getResource("images/tankR.gif")),
+			tk.getImage(Tank.class.getClassLoader().getResource("images/tankRD.gif")),
+			tk.getImage(Tank.class.getClassLoader().getResource("images/tankD.gif")),
+			tk.getImage(Tank.class.getClassLoader().getResource("images/tankLD.gif")),
 
 	};
 	private static Map<String, Image> imgs = new HashMap<String, Image>();
-	static{//静态的语句块，可以进行赋值等function的操作。初始化时运行。
+	static{//static block 静态的语句块，可以进行赋值等function的操作。初始化时运行。
 		imgs.put("L", images[0]);
 		imgs.put("LU", images[1]);
 		imgs.put("U", images[2]);
@@ -91,6 +91,9 @@ private static Toolkit tk = Toolkit.getDefaultToolkit();
 			}
 			return;
 
+		}
+		if(good){
+			bb.draw(g);
 		}
 //		Color c = g.getColor();// g 是前景色
 //		if (good) {
@@ -289,8 +292,8 @@ private static Toolkit tk = Toolkit.getDefaultToolkit();
 	public Missile fire() {
 		if (!live)
 			return null;
-		int x = this.x + Tank.WIDTH / 2 - Missile.WIDTH / 2;
-		int y = this.y + Tank.HEIGHT / 2 - Missile.HEIGHT / 2;
+		int x = this.x + images[0].getWidth(null) / 2 - Missile.WIDTH / 2;
+		int y = this.y + images[0].getHeight(null)/ 2 - Missile.HEIGHT / 2;
 
 		Missile m = new Missile(x, y, good, ptDir, tc);
 
@@ -301,8 +304,8 @@ private static Toolkit tk = Toolkit.getDefaultToolkit();
 	public Missile fire(Direction dir) {
 		if (!live)
 			return null;
-		int x = this.x + Tank.WIDTH / 2 - Missile.WIDTH / 2;
-		int y = this.y + Tank.HEIGHT / 2 - Missile.HEIGHT / 2;
+		int x = this.x + images[0].getWidth(null) / 2 - Missile.WIDTH / 2;
+		int y = this.y + images[0].getHeight(null)/ 2 - Missile.HEIGHT / 2;
 
 		Missile m = new Missile(x, y, good, dir, tc);
 
@@ -361,8 +364,8 @@ private static Toolkit tk = Toolkit.getDefaultToolkit();
 		public void draw(Graphics g){
 			Color c = g.getColor();
 			g.setColor(Color.RED);
-			g.drawRect(x, y - 10, WIDTH, 10);
-			int w = WIDTH * life /100 ;
+			g.drawRect(x, y - 10, images[0].getWidth(null), 10);
+			int w = images[0].getWidth(null) * life /100 ;
 			g.fillRect(x, y-10, w, 10);
 			g.setColor(c);
 			
